@@ -8,10 +8,12 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 
-const Todo = ({ task, deleteTodo, updateTodo }) => {
+const Todo = ({ _id, task, deleteTodo, updateTodo }) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
   const [editingTaskId, setEditingTaskId] = useState(null);
+  console.log(task);
+  console.log(_id);
 
   const handleClickOpen = (taskId, taskValue) => {
     setOpen(true);
@@ -38,20 +40,20 @@ const Todo = ({ task, deleteTodo, updateTodo }) => {
         className="flex justify-between
   items-center bg-gray-600 text-white py-3 px-4 rounded-md mb-1 cursor-pointer"
       >
-        <p className="">{task.task}</p>
+        <p className="">{task}</p>
         <div className="flex items-center gap-x-4">
           <AiFillEdit
             className="text-xl"
             onClick={() => {
               {
-                handleClickOpen(task.id, task.task);
+                handleClickOpen(_id, task.task);
               }
             }}
           />
           <BsFillTrashFill
             className="text-xl"
             onClick={() => {
-              deleteTodo(task.id);
+              deleteTodo(_id);
             }}
           />
         </div>

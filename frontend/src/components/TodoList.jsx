@@ -12,18 +12,15 @@ const TodoList = () => {
 
   useEffect(() => {
     fetchTodos();
-  }, []);
+  }, [fetchTodos]);
 
   async function fetchTodos() {
     try {
       const response = await axios.get(API_URL);
       console.log("Fetched todos:", response.data);
-      // Ensure each todo has an 'id' property
-      const todosWithIds = response.data.map((todo) => ({
-        ...todo,
-        id: todo.id || Date.now(), // Use existing id or generate a new one
-      }));
-      setTodo(todosWithIds); // Remove the extra array brackets
+      setTodo(response.data.data); // Remove the extra array brackets
+      console.log("My Todo", todoValue);
+      console.log("My todo length", todoValue.length);
     } catch (error) {
       console.error("Error fetching todos:", error);
     }
@@ -73,14 +70,28 @@ const TodoList = () => {
         Todo App
       </div>
       <Form createTodo={createTodo} />
-      {todoValue.map((todo, index) => (
+      {/* {todoValue.map((todo) => (
         <Todo
-          key={index}
-          task={todo}
+          id={todo.id}
+          key={todo.id}
+          task={todo.task}
           deleteTodo={deleteTodo}
           updateTodo={updateTodo}
         />
-      ))}
+      ))} */}
+      {todoValue.length > 0 ? (
+        todoValue.map((todo) => (
+          <Todo
+            key={todo.id || todo._id}
+            _id={todo.id || todo._id}
+            task={todo.task}
+            deleteTodo={deleteTodo}
+            updateTodo={updateTodo}
+          />
+        ))
+      ) : (
+        <p className="text-white">No todos available</p>
+      )}
     </div>
   );
 };
