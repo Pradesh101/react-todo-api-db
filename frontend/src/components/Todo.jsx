@@ -46,7 +46,7 @@ const Todo = ({ _id, task, deleteTodo, updateTodo }) => {
             className="text-xl"
             onClick={() => {
               {
-                handleClickOpen(_id, task.task);
+                handleClickOpen(_id, task);
               }
             }}
           />
